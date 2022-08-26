@@ -2,7 +2,7 @@ spring:
     datasource:
         url: jdbc:mysql://localhost:3306/saute
         username: root
-        password: YOUR_PASS
+        password: q1w2e3r4t5y6
     jpa:
         show-sql: true
         hibernate:
