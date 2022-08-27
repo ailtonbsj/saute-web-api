@@ -38,8 +38,8 @@ public class NivelEscolarController {
     }
 
     @PostMapping
-    public NivelEscolar store(@RequestBody NivelEscolar nivelEscolar) {
-        return repository.save(nivelEscolar);
+    public Long store(@RequestBody NivelEscolar nivelEscolar) {
+        return repository.save(nivelEscolar).getId();
     }
 
     @GetMapping("{id}")
@@ -49,12 +49,12 @@ public class NivelEscolarController {
     }
 
     @PatchMapping
-    public NivelEscolar update(@RequestBody NivelEscolar nivelEscolar) {
+    public Long update(@RequestBody NivelEscolar nivelEscolar) {
         NivelEscolar ent = repository.findById(nivelEscolar.getId()).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         ent.setNivelEscolar(nivelEscolar.getNivelEscolar());
         ent.setUpdatedAt(LocalDateTime.now());
-        return repository.save(ent);
+        return repository.save(ent).getId();
     }
 
     @DeleteMapping("{id}")
