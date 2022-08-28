@@ -1,8 +1,10 @@
 package ailtonbsj.sauteweb.sauteapi.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,13 +19,56 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class NivelEscolar {
+public class Professor implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    Long id;
 
     @Column(nullable = false)
-    private String nivelEscolar;
+    String nome;
+
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @Column(nullable = false)
+    LocalDateTime nascimento;
+
+    @Column(nullable = false)
+    String naturalidade;
+
+    @Column(nullable = false)
+    String cpf;
+
+    @Column(nullable = false)
+    String rg;
+
+    @Column
+    String orgaoEmissor;
+
+    @Embedded
+    Endereco endereco;
+
+    @Column
+    String telefone;
+
+    @Column(nullable = false)
+    String celular;
+
+    @Column(nullable = false)
+    String email;
+
+    @Column
+    String pai;
+
+    @Column
+    String mae;
+
+    @Column(nullable = false)
+    String habilitacao;
+
+    @Column
+    String categoriaCNH;
+
+    @Column(length = 10240)
+    String foto;
 
     @Column(nullable = false)
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
