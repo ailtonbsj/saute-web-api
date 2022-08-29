@@ -1,6 +1,7 @@
 package ailtonbsj.sauteweb.sauteapi.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -27,9 +28,9 @@ public class Professor implements Serializable {
     @Column(nullable = false)
     String nome;
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(nullable = false)
-    LocalDateTime nascimento;
+    LocalDate nascimento;
 
     @Column(nullable = false)
     String naturalidade;
@@ -67,7 +68,7 @@ public class Professor implements Serializable {
     @Column
     String categoriaCNH;
 
-    @Column(length = 10240)
+    @Column(length = 100000)
     String foto;
 
     @Column(nullable = false)
