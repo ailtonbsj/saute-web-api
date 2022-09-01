@@ -38,6 +38,11 @@ public class AutorizacaoController {
         return rep.findAll();
     }
 
+    @GetMapping("/proc/{id}")
+    public Iterable<Autorizacao> findAllByProcesso(@PathVariable Long id) {
+        return rep.findAllByProcessoId(id);
+    }
+
     @GetMapping("{id}")
     public Autorizacao findById(@PathVariable Long id) {
         return rep.findById(id).orElseThrow(
