@@ -1,12 +1,12 @@
-package ailtonbsj.sauteweb.sauteapi.model;
+package ailtonbsj.sauteweb.sauteapi.entities;
 
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -14,13 +14,17 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
-@MappedSuperclass
+@Entity
 @Getter
 @Setter
-public class EntityBase {
+public class NivelEscolar {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
+    @Column(nullable = false)
+    private Long id;
+
+    @Column(nullable = false)
+    private String nivelEscolar;
 
     @Column(nullable = false)
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")

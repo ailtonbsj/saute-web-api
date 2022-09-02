@@ -1,4 +1,4 @@
-package ailtonbsj.sauteweb.sauteapi.rest;
+package ailtonbsj.sauteweb.sauteapi.controllers;
 
 import java.time.LocalDateTime;
 
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import ailtonbsj.sauteweb.sauteapi.model.Autorizacao;
-import ailtonbsj.sauteweb.sauteapi.repository.AutorizacaoRepository;
+import ailtonbsj.sauteweb.sauteapi.entities.Autorizacao;
+import ailtonbsj.sauteweb.sauteapi.repositories.AutorizacaoRepository;
 import ailtonbsj.sauteweb.sauteapi.utils.Utils;
 
 @RestController

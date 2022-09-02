@@ -1,9 +1,9 @@
-package ailtonbsj.sauteweb.sauteapi.rest;
+package ailtonbsj.sauteweb.sauteapi.controllers;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,48 +18,50 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import ailtonbsj.sauteweb.sauteapi.model.NivelEscolar;
-import ailtonbsj.sauteweb.sauteapi.repository.NivelEscolarRepository;
+import ailtonbsj.sauteweb.sauteapi.entities.Professor;
+import ailtonbsj.sauteweb.sauteapi.repositories.ProfessorRepository;
+import ailtonbsj.sauteweb.sauteapi.utils.Utils;
 
 @RestController
-@RequestMapping("/api/nivelescolar")
+@RequestMapping("/api/professor")
 @CrossOrigin("http://localhost:4200")
-public class NivelEscolarController {
+public class ProfessorController {
 
     @Autowired
-    private NivelEscolarRepository repository;
-
-    @GetMapping
-    public List<NivelEscolar> index(@RequestParam Optional<String> q) {
-        if (q.isEmpty())
-            return repository.findAll();
-        else
-            return repository.findByNivelEscolarContainingIgnoreCase(q.get());
-    }
+    private ProfessorRepository rep;
 
     @PostMapping
-    public Long store(@RequestBody NivelEscolar nivelEscolar) {
-        return repository.save(nivelEscolar).getId();
+    public Long save(@RequestBody Professor professor) {
+        return rep.save(professor).getId();
     }
 
     @GetMapping("{id}")
-    public NivelEscolar show(@PathVariable Long id) {
-        return repository.findById(id).orElseThrow(
+    public Professor findById(@PathVariable Long id) {
+        return rep.findById(id).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping
+    public Iterable<Professor> index(@RequestParam Optional<String> q) {
+        if (q.isEmpty())
+            return rep.findAll();
+        else
+            return rep.findByNomeContainingIgnoreCase(q.get());
     }
 
     @PatchMapping
-    public Long update(@RequestBody NivelEscolar nivelEscolar) {
-        NivelEscolar ent = repository.findById(nivelEscolar.getId()).orElseThrow(
+    public Long update(@RequestBody Professor professor) {
+        Professor ent = rep.findById(professor.getId()).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        ent.setNivelEscolar(nivelEscolar.getNivelEscolar());
+        professor.setId(null);
+        BeanUtils.copyProperties(professor, ent, Utils.getNullPropertyNames(professor));
         ent.setUpdatedAt(LocalDateTime.now());
-        return repository.save(ent).getId();
+        return rep.save(ent).getId();
     }
 
     @DeleteMapping("{id}")
-    public void destroy(@PathVariable Long id) {
-        repository.deleteById(id);
+    public void deleteById(@PathVariable Long id) {
+        rep.deleteById(id);
     }
 
 }

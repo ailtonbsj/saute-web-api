@@ -1,15 +1,16 @@
-package ailtonbsj.sauteweb.sauteapi.model;
+package ailtonbsj.sauteweb.sauteapi.entities;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -18,59 +19,37 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Getter
 @Setter
-public class Professor implements Serializable {
+@Getter
+public class Instituicao {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
-    @Column(nullable = false)
-    String nome;
+    String instituicao;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Column(nullable = false)
-    LocalDate nascimento;
-
-    @Column(nullable = false)
-    String naturalidade;
-
-    @Column(nullable = false)
-    String cpf;
-
-    @Column(nullable = false)
-    String rg;
-
-    @Column
-    String orgaoEmissor;
+    @ManyToOne(cascade = CascadeType.DETACH, optional = false)
+    NivelEscolar nivelEscolar;
 
     @Embedded
     Endereco endereco;
 
-    @Column
-    String telefone;
-
-    @Column(nullable = false)
-    String celular;
-
-    @Column(nullable = false)
     String email;
 
-    @Column
-    String pai;
+    String dependencia;
 
-    @Column
-    String mae;
+    String entidade;
 
-    @Column(nullable = false)
-    String habilitacao;
+    String credenciamento;
 
-    @Column
-    String categoriaCNH;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    LocalDate validadeCredenciamento;
 
-    @Column(length = 100000)
-    String foto;
+    String recredenciamento;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    LocalDate validadeRecredenciamento;
+    
     @Column(nullable = false)
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime createdAt;

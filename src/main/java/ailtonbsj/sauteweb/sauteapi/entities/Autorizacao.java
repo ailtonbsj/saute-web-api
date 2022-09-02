@@ -1,4 +1,4 @@
-package ailtonbsj.sauteweb.sauteapi.model;
+package ailtonbsj.sauteweb.sauteapi.entities;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;

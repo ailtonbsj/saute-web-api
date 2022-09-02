@@ -1,4 +1,4 @@
-package ailtonbsj.sauteweb.sauteapi.rest;
+package ailtonbsj.sauteweb.sauteapi.controllers;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -18,43 +18,45 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import ailtonbsj.sauteweb.sauteapi.model.Professor;
-import ailtonbsj.sauteweb.sauteapi.repository.ProfessorRepository;
+import ailtonbsj.sauteweb.sauteapi.entities.Processo;
+import ailtonbsj.sauteweb.sauteapi.repositories.ProcessoRepository;
 import ailtonbsj.sauteweb.sauteapi.utils.Utils;
 
 @RestController
-@RequestMapping("/api/professor")
+@RequestMapping("/api/processo")
 @CrossOrigin("http://localhost:4200")
-public class ProfessorController {
+public class ProcessoController {
 
     @Autowired
-    private ProfessorRepository rep;
+    ProcessoRepository rep;
 
     @PostMapping
-    public Long save(@RequestBody Professor professor) {
-        return rep.save(professor).getId();
+    public Long save(@RequestBody Processo processo) {
+        return rep.save(processo).getId();
+    }
+
+    @GetMapping
+    public Iterable<Processo> findAll(@RequestParam Optional<String> q) {
+        if (q.isEmpty()) {
+            return rep.findAll();
+        } else {
+            System.out.println(q.get());
+            return rep.findByNumeroContaining(q.get());
+        }
     }
 
     @GetMapping("{id}")
-    public Professor findById(@PathVariable Long id) {
+    public Processo findById(@PathVariable Long id) {
         return rep.findById(id).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping
-    public Iterable<Professor> index(@RequestParam Optional<String> q) {
-        if (q.isEmpty())
-            return rep.findAll();
-        else
-            return rep.findByNomeContainingIgnoreCase(q.get());
-    }
-
     @PatchMapping
-    public Long update(@RequestBody Professor professor) {
-        Professor ent = rep.findById(professor.getId()).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        professor.setId(null);
-        BeanUtils.copyProperties(professor, ent, Utils.getNullPropertyNames(professor));
+    public Long update(@RequestBody Processo processo) {
+        Processo ent = rep.findById(processo.getId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        processo.setId(null);
+        BeanUtils.copyProperties(processo, ent, Utils.getNullPropertyNames(processo));
         ent.setUpdatedAt(LocalDateTime.now());
         return rep.save(ent).getId();
     }

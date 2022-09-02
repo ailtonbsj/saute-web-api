@@ -1,4 +1,4 @@
-package ailtonbsj.sauteweb.sauteapi.model;
+package ailtonbsj.sauteweb.sauteapi.entities;
 
 import java.time.LocalDateTime;
 
