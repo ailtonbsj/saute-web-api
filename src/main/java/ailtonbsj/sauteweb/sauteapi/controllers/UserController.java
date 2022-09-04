@@ -1,6 +1,7 @@
 package ailtonbsj.sauteweb.sauteapi.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,12 +14,18 @@ import ailtonbsj.sauteweb.sauteapi.services.UserService;
 
 @RestController
 @RequestMapping("/api/users")
+@CrossOrigin("http://localhost:4200")
 public class UserController {
     @Autowired
     UserService userService;
 
     @Autowired
     RoleService roleService;
+
+    @PostMapping("/login")
+    public User login(@RequestBody User user) {
+        return userService.doLogin(user);
+    }
 
     @PostMapping("/create")
     public User create(@RequestBody User user) {

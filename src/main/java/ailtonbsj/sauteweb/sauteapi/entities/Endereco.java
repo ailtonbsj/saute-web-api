@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Endereco {
-    @Column(nullable = false)
+    @Column(nullable = true)
     String cep;
 
     @Column(nullable = false)
