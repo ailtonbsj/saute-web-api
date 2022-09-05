@@ -14,7 +14,7 @@ import ailtonbsj.sauteweb.sauteapi.services.UserService;
 
 @RestController
 @RequestMapping("/api/users")
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin({"${app.front-url}"})
 public class UserController {
     @Autowired
     UserService userService;

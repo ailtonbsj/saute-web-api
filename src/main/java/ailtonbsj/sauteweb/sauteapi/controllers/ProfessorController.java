@@ -25,7 +25,7 @@ import ailtonbsj.sauteweb.sauteapi.utils.Utils;
 
 @RestController
 @RequestMapping("/api/professor")
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin({"${app.front-url}"})
 public class ProfessorController {
 
     @Autowired

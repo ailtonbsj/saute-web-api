@@ -24,7 +24,7 @@ import ailtonbsj.sauteweb.sauteapi.utils.Utils;
 
 @RestController
 @RequestMapping("/api/processo")
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin({"${app.front-url}"})
 public class ProcessoController {
 
     @Autowired
