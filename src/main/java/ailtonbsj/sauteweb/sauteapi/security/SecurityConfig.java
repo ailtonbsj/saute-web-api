@@ -1,6 +1,7 @@
 package ailtonbsj.sauteweb.sauteapi.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -20,6 +21,9 @@ import ailtonbsj.sauteweb.sauteapi.security.jwt.JWTAuthorizationFilter;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfig {
+
+    @Value("${app.front-url}")
+    public String origin = "";
 
     @Autowired
     AuthenticationConfiguration authenticationConfiguration;
@@ -48,7 +52,8 @@ public class SecurityConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedMethods("*");
+                        .allowedMethods("*")
+                        .allowedOrigins(origin);
             }
         };
     }
