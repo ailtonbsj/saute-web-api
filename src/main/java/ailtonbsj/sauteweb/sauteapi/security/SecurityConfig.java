@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import ailtonbsj.sauteweb.sauteapi.security.jwt.JWTAuthenticationFilter;
 import ailtonbsj.sauteweb.sauteapi.security.jwt.JWTAuthorizationFilter;
@@ -21,25 +23,6 @@ public class SecurityConfig {
 
     @Autowired
     AuthenticationConfiguration authenticationConfiguration;
-
-    // @Autowired
-    // CustomUserDetailsService userService;
-
-    // @Autowired
-    // PasswordEncoder passwordEncoder;
-
-    // @Bean
-    // public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    // http.cors().and().csrf().disable()
-    // .authorizeRequests()
-    // .antMatchers(HttpMethod.POST, "/users/create", "/users/create/**")
-    // .permitAll()
-    // .anyRequest().authenticated().and()
-    // .addFilter(new JWTAuthenticationFilter(authenticationManager()))
-    // .addFilter(new JWTAuthenticationFilter(authenticationManager()))
-    // .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-    // return http.build();
-    // }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -59,22 +42,14 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // @Bean
-    // CorsConfigurationSource corsConfigurationSource() {
-    //     final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    //     CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
-    //     source.registerCorsConfiguration("/**", corsConfiguration);
-    //     return source;
-    // }
-
-    // @Bean
-    // public WebMvcConfigurer corsConfigurer() {
-    // return new WebMvcConfigurer() {
-    // @Override
-    // public void addCorsMappings(CorsRegistry registry) {
-    // registry.addMapping("/**")
-    // .allowedMethods("*");
-    // }
-    // };
-    // }
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                        .allowedMethods("*");
+            }
+        };
+    }
 }

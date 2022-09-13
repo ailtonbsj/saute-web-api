@@ -62,7 +62,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                                 .map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                                 .withIssuer(issuer).sign(Algorithm.HMAC512(SECRET.getBytes()));
 
-                response.getWriter().write(token);
+                response.getWriter().write(String.format("{\"token\":\"%s\"}", token));
                 response.getWriter().flush();
         }
 
