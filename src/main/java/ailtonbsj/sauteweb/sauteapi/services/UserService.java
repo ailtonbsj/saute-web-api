@@ -27,13 +27,20 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User doLogin(User user) {
-        User existUser = userRepository.findByUsername(user.getUsername());
+    // public User doLogin(User user) {
+    //     User existUser = userRepository.findByUsername(user.getUsername());
+    //     if (existUser == null)
+    //         throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+    //     if (passEncoder().matches(user.getPassword(), existUser.getPassword()))
+    //         return existUser;
+    //     else
+    //         throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+    // }
+
+    public User doLoginWithGoogle(String email) {
+        User existUser = userRepository.findByUsername(email);
         if (existUser == null)
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
-        if (passEncoder().matches(user.getPassword(), existUser.getPassword()))
-            return existUser;
-        else
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        return existUser;
     }
 }

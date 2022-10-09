@@ -49,7 +49,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         stream(roles).forEach(role -> {
             authorities.add(new SimpleGrantedAuthority(role));
-        });
+        }); 
 
         return new UsernamePasswordAuthenticationToken(user, null, authorities);
     }

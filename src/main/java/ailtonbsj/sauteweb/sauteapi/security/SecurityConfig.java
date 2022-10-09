@@ -39,6 +39,7 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests().antMatchers("/api/login/**").permitAll()
+                .antMatchers("/api/users/with-google/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(jwtAuthenticationFilter)
